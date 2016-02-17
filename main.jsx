@@ -19,17 +19,22 @@ var App = React.createClass({
       return theTodoToModify;
     });
     this.setState({todos: newTodos});
-    // this.setState()
+  },
+  removeTodo: function(todoData) {
+    var newTodos = this.state.todos.filter(function(theTodoToRemove) {
+      return todoData === theTodoToRemove ? false : true;
+    });
+    this.setState({todos: newTodos});
   },
 
   // component instance
   // toggleComplete={this.toggleComplete} refers to toggleComplete method above
-
   renderTodos : function(todo, index) {
     return <Todo key = {index}
-                id={index}
-                toggleComplete={this.toggleComplete}
-                todoData={todo}/>;
+                id = {index}
+                toggleComplete = {this.toggleComplete}
+                removeTodo = {this.removeTodo}
+                todoData = {todo}/>;
   },
   addTodo: function(e) {
     e.preventDefault();
@@ -55,7 +60,7 @@ var App = React.createClass({
         </ul>
         <div className="todo-admin">
         <div>{number}{number > 1 || number === 0 ? " todos" : " todo"}</div>
-        <div>//add remove completed button</div>
+        <div></div>
     </div>
       </div>
     )
@@ -70,12 +75,15 @@ var Todo = React.createClass({
   parentToggleComplete: function() {
     this.props.toggleComplete(this.props.todoData)
   },
+  tellParentToRemoveTodo: function(){
+    this.props.removeTodo(this.props.todoData);
+  },
   render: function() {
     return (
       <li>{this.props.todoData.title}
         <input type="checkbox" id={this.props.id} checked={this.props.todoData.complete} onClick={this.parentToggleComplete}/>
         <label htmlFor={this.props.id} id={this.props.key}></label>
-        <button><i className="fa fa-trash"></i></button>
+        <button onClick={this.tellParentToRemoveTodo}><i className="fa fa-trash"></i></button>
       </li>
     )
   }
