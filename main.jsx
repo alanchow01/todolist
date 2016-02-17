@@ -7,13 +7,7 @@ var App = React.createClass({
 
   getInitialState: function(){
     return {
-      todos: [
-        {title:'placeholder todo 1', complete: false},
-        {title:'placeholder todo 2', complete: false},
-        {title:'placeholder todo 3', complete: false},
-        {title:'placeholder todo 4', complete: false},
-        {title:'placeholder todo 5', complete: false}
-      ]
+      todos: []
     }
   },
 
@@ -37,13 +31,32 @@ var App = React.createClass({
                 toggleComplete={this.toggleComplete}
                 todoData={todo}/>;
   },
+  addTodo: function(e) {
+    e.preventDefault();
+
+    if(this.refs.addTodoValue.value) {
+      this.state.todos.push({title: this.refs.addTodoValue.value, complete: false});
+      this.setState({todos:this.state.todos});
+      this.refs.addTodoValue.value = '';
+    }
+  },
   render: function () {
+    var number = this.state.todos.length;
     return (
       <div className = "todo-list">
         <h1>Todo List</h1>
+        <div className="add-todo">
+          <form name="add-todo-form" onSubmit={this.addTodo}>
+            <input type="text" ref="addTodoValue" /><span>(Hit enter to add)</span>
+          </form>
+        </div>
         <ul>
           { this.state.todos.map(this.renderTodos) } {/*.map() similar to forEach iterates through array*/}
         </ul>
+        <div className="todo-admin">
+        <div>{number}{number > 1 || number === 0 ? " todos" : " todo"}</div>
+        <div>//add remove completed button</div>
+    </div>
       </div>
     )
   }
