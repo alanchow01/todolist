@@ -26,6 +26,12 @@ var App = React.createClass({
     });
     this.setState({todos: newTodos});
   },
+  removeSelected: function() {
+    var newTodos = this.state.todos.filter(function(todoItem) {
+      return todoItem.complete ? false : true //false excludes item from new array, true adds it
+    })
+    this.setState({todos:newTodos});
+  },
 
   // component instance
   // toggleComplete={this.toggleComplete} refers to toggleComplete method above
@@ -45,6 +51,12 @@ var App = React.createClass({
       this.refs.addTodoValue.value = '';
     }
   },
+  hasCompleted: function() {
+    var completedTodoArray = this.state.todos.filter(function(todoItem) {
+      return todoItem.complete === true;
+    });
+    return completedTodoArray.length;
+  },
   render: function () {
     var number = this.state.todos.length;
     return (
@@ -60,7 +72,10 @@ var App = React.createClass({
         </ul>
         <div className="todo-admin">
         <div>{number}{number > 1 || number === 0 ? " todos" : " todo"}</div>
-        <div></div>
+        <div>{this.hasCompleted() ?
+          <button className="removeSelected" onClick={this.removeSelected}>Clear Selected</button> : ''
+          }
+        </div>
     </div>
       </div>
     )
