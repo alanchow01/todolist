@@ -1,0 +1,231 @@
+// Variables
+
+$light-grey: #dbdbdb;
+$med-grey: #c2c2c2;
+$dark-grey: #2e2e2e;
+$near-black: #111111;
+
+$base-space-unit: 1rem;
+
+/* Imported Fonts */
+/*-----------------------------------------*/
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
+
+/* CSS Reset */
+/*-----------------------------------------*/
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Global */
+/*-----------------------------------------*/
+
+* {
+	box-sizing: border-box;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+html {
+   font-size: 18px;
+}
+
+body,
+button,
+input {
+	color: $near-black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+body {
+	background-color:$dark-grey;
+}
+
+/* To-Do List */
+/*-----------------------------------------*/
+
+#todo-app {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+}
+
+.todo-list {
+	align-self: center;
+	background-color: white;
+	border-radius: 5px;
+	width: 400px;
+	-webkit-box-shadow: 0px 0px 20px 0px rgba(50, 50, 50, 0.5);
+	-moz-box-shadow:    0px 0px 20px 0px rgba(50, 50, 50, 0.5);
+	box-shadow:         0px 0px 20px 0px rgba(50, 50, 50, 0.5);
+
+	h1 {
+		background-color: #a071b8;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		color: white;
+		font-size: 2rem;
+		padding: ($base-space-unit / 2) $base-space-unit;
+		text-align: center;
+	}
+
+	li {
+		border-bottom: 1px solid $light-grey;;
+		display: flex;
+		font-size: 1.25rem;
+		padding: $base-space-unit;
+		align-items: flex-start;
+
+		span {
+			flex: 1 0 60%;
+			font-size: .9rem;
+			margin-right: $base-space-unit;
+			margin-top: ($base-space-unit / 3);
+		}
+
+		input[type="checkbox"] {
+			display: none; // to hide the checkbox itself
+
+			& + label:before {
+				display: inline-block;
+				color: $med-grey;
+				content: "\f10c";
+				cursor: pointer;
+				font-family: FontAwesome;
+				letter-spacing: $base-space-unit; // space between checkbox and label
+			}
+
+			& + label:hover::before {
+				color: #4ccbb0;
+			}
+
+			&:checked + label:before {
+				color: #4ccbb0;
+				content: "\f05d";
+			}
+		}
+
+		button {
+			background: transparent;
+			border: 0;
+			color: $med-grey;
+			cursor: pointer;
+			font-size: 1.25rem;
+			padding: 0;
+
+			&:hover {
+				color: #fa4f4f;
+			}
+		}
+	}
+}
+
+.add-todo {
+	background-color: $med-grey;
+	padding: $base-space-unit;
+
+	form {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+
+		input[type="text"] {
+			background-color: transparent;
+			border: 0;
+			border-bottom: 1px solid darken($med-grey, 20%);
+			font-size: 1rem;
+			line-height: 1;
+			padding: $base-space-unit / 3;
+
+			&:focus {
+				border-bottom-color: #a071b8;
+			}
+		}
+
+		span {
+			color: darken($med-grey, 20%);
+			font-size: 0.9rem;
+			line-height: 1;
+			text-align: right;
+		}
+	}
+}
+
+.todo-admin {
+	align-items: center;
+	display: flex;
+	font-size: 0.9rem;
+	justify-content: space-between;
+	min-height: 68px;
+	padding: $base-space-unit;
+
+	div span {
+		color: $med-grey;
+	}
+
+	button {
+		background-color: transparent;
+		border: 1px solid #a071b8;
+		color: #a071b8;
+		cursor: pointer;
+		font-size: .9rem;
+		padding: ($base-space-unit / 6) ($base-space-unit / 3);
+
+		&:hover {
+			border: 1px solid #4ccbb0;
+			color: #4ccbb0;
+		}
+	}
+}
